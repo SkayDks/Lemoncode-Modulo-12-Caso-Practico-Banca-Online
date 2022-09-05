@@ -18,6 +18,8 @@ onUpdateField('user', (event) => {
   login = { ...login, user: value };
 
   fromValidation.validateField('user', login.user).then((result) => {
+    console.log("login", result);
+    console.log("login", login.user);
     onSetError('user', result);
   });
 });
@@ -26,7 +28,7 @@ onUpdateField('password', (event) => {
   const value = event.target.value;
   login = { ...login, password: value };
 
-  fromValidation.validateField('password'.login.password).then((result) => {
+  fromValidation.validateField('password', login.password).then((result) => {
     onSetError('password', result);
   });
 });

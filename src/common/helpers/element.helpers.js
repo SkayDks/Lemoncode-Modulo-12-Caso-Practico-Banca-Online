@@ -1,38 +1,54 @@
 export const onUpdateField = (id, callback) => {
   const element = document.getElementById(id);
-  element.oninput = event => callback(event);
+  element.oninput = (event) => callback(event);
 
   if (element.type !== 'checkbox') {
-    element.onblur = event => callback(event);
+    element.onblur = (event) => callback(event);
   }
 };
 
 export const onSubmitForm = (id, callback) => {
   const element = document.getElementById(id);
-  element.onclick = e => {
+  element.onclick = (e) => {
     e.preventDefault();
     callback();
   };
 };
 
 export const onSetError = (id, error) => {
-  if (error.succeeded) {
-    removeElementClass(id);
-    setErrorMessage(id, '');
+  const isDate = id === 'date';
+
+  if (isDate) {
+    if (error.succeeded) {
+      removeElementClass('day');
+      removeElementClass('month');
+      removeElementClass('year');
+      setErrorMessage(id, '');
+    } else {
+      setElementClass('day');
+      setElementClass('month');
+      setElementClass('year');
+      setErrorMessage(id, error.message);
+    }
   } else {
-    setElementClass(id);
-    setErrorMessage(id, error.message);
+    if (error.succeeded) {
+      removeElementClass(id);
+      setErrorMessage(id, '');
+    } else {
+      setElementClass(id);
+      setErrorMessage(id, error.message);
+    }
   }
 };
 
-const setElementClass = id => {
+const setElementClass = (id) => {
   const element = document.getElementById(id);
   if (element) {
     element.classList.add('error');
   }
 };
 
-const removeElementClass = id => {
+const removeElementClass = (id) => {
   const element = document.getElementById(id);
   if (element) {
     element.classList.remove('error');
@@ -69,6 +85,6 @@ const onSetValue = (id, value) => {
   }
 };
 
-export const onSetValues = values => {
+export const onSetValues = (values) => {
   Object.entries(values).forEach(([key, value]) => onSetValue(key, value));
 };

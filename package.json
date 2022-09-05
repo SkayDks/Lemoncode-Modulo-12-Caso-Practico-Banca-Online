@@ -24,6 +24,9 @@
   },
   "dependencies": {
     "@lemoncode/fonk": "^1.3.0",
+    "@lemoncode/fonk-iban-validator": "^1.0.0",
+    "@lemoncode/fonk-is-number-validator": "^1.1.2",
+    "@lemoncode/fonk-later-date-validator": "^1.0.0",
     "axios": "^0.27.2",
     "qs": "^6.9.1"
   }
